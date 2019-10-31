@@ -3,9 +3,13 @@ import "components/Application.scss";
 import DayList from "./DayList"
 import Appointment from "components/Appointment"
 import axios from 'axios';
-import { getAppointmentsForDay, getInterview } from "../helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
 
+/*
+Once the getInterviewersByDay function works, we can add it into our Application component.
 
+Use it to create an interviewers array that will first be passed to the Appointment component and then passed down to the Form component.
+ */
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
@@ -43,16 +47,17 @@ export default function Application(props) {
       })
   }, []);
   const appointments = getAppointmentsForDay(state, state.day)
+  const interviewers = getInterviewersForDay(state, state.day)
 
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     //console.log("appointment", appointment)
     return (
-      <Appointment 
-        {...appointment} 
-        key={appointment.id} 
+      <Appointment
+        {...appointment}
+        key={appointment.id}
         interview={interview}
-        interviewers={[]} 
+        interviewers={interviewers}
       />
     );
   });
