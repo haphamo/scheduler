@@ -11,7 +11,7 @@ export function getAppointmentsForDay(state, day) {
 }
 
 export function getInterviewersForDay(state, day) {
-  const filteredDay = state.days.filter(day => day.name === day);
+  const filteredDay = state.days.filter(d => d.name === day);
   const dayInterviewers = filteredDay[0]
 
   if (dayInterviewers === undefined || dayInterviewers.length === 0) {
