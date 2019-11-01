@@ -27,7 +27,15 @@ export default function Application(props) {
       ...state,
       appointments
     });
-   // axios.put(`/api/appointments/:${id}`,[interview])
+
+    return axios.put(`/api/appointments/${id}`, {interview})
+    // const { student, interviewer } = request.body.interview;
+    .then(()=> {
+      setState({...state, appointments})
+    }).catch((err)=> {
+      console.error(err)
+    })
+  
   }
 
   const setDay = day => setState(prev => ({ ...prev, day }));
@@ -72,7 +80,6 @@ export default function Application(props) {
         interviewers={interviewers}
         bookInterview={bookInterview }
         // Within the save function in our Appointment component transition to the SHOW mode after calling props.bookInterview.
-
 
       />
     );
