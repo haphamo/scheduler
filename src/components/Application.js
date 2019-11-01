@@ -5,11 +5,7 @@ import Appointment from "components/Appointment"
 import axios from 'axios';
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
 
-/*
 
-Then pass bookInterview to each Appointment component as props.
-
- */
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
@@ -19,8 +15,20 @@ export default function Application(props) {
 
   function bookInterview(id, interview) {
     console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({
+      ...state,
+      appointments
+    });
+   // axios.put(`/api/appointments/:${id}`,[interview])
   }
-
 
   const setDay = day => setState(prev => ({ ...prev, day }));
 
@@ -62,7 +70,9 @@ export default function Application(props) {
         key={appointment.id}
         interview={interview}
         interviewers={interviewers}
-        bookInterview={bookInterview}
+        bookInterview={bookInterview }
+        // Within the save function in our Appointment component transition to the SHOW mode after calling props.bookInterview.
+
 
       />
     );

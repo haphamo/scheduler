@@ -23,7 +23,7 @@ export default function Appointment(props) {
       interviewer
     };
     props.bookInterview(props.id, interview)
-    //return interview
+    transition(SHOW)
   }
   return <article className="appointment">
     <Header time={props.time} />
