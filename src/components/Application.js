@@ -6,9 +6,9 @@ import axios from 'axios';
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
 
 /*
-Once the getInterviewersByDay function works, we can add it into our Application component.
 
-Use it to create an interviewers array that will first be passed to the Appointment component and then passed down to the Form component.
+Then pass bookInterview to each Appointment component as props.
+
  */
 export default function Application(props) {
   const [state, setState] = useState({
@@ -17,8 +17,12 @@ export default function Application(props) {
     appointments: {}
   });
 
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+  }
+
+
   const setDay = day => setState(prev => ({ ...prev, day }));
-  //const setDays = days => setState(prev => ({ ...prev, days }))
 
   useEffect(() => {
     axios.all([
@@ -58,6 +62,8 @@ export default function Application(props) {
         key={appointment.id}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
+
       />
     );
   });
