@@ -1,0 +1,1 @@
+//move the logic used to manage the state from the components/Application.js into here

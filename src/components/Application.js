@@ -59,16 +59,6 @@ export default function Application(props) {
       axios.get(`/api/appointments`),
       axios.get(`/api/interviewers`)
     ])
-
-      // .then(response => response.data.map(obj => ({
-      //   name: obj.name,
-      //   spots: obj.spots
-      // })))
-
-      // .then(response => {
-      //   setState({ ...state, days: response.data })
-      // })
-
       .then((all) => {
         console.log(all[2].data)
         setState(prev => ({
