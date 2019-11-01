@@ -6,7 +6,7 @@ import Empty from "./Empty";
 import useVisualMode from '../../hooks/useVisualMode';
 import Form from "./Form";
 import Saving from "./Saving";
-//import Deleting from "./Deleting";
+import Deleting from "./Deleting";
 import Confirm from "./Confirm";
 
 
@@ -31,9 +31,17 @@ export default function Appointment(props) {
     //create promise to create delay
     transition(SAVING)
     props.bookInterview(props.id, interview)
-    .then(()=>transition(SHOW))
-    
+      .then(() => transition(SHOW))
   }
+
+  function del() {
+    transition(DELETING, true)
+    props.cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+
+  }
+
+
   return <article className="appointment">
     <Header time={props.time} />
     {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
@@ -43,7 +51,6 @@ export default function Appointment(props) {
         interviewer={props.interview.interviewer}
         onEdit={props.onEdit}
         onDelete={() => transition(CONFIRM)}
-        //onDelete={props.delete}
       />
     )}
     {mode === CREATE && (<Form
@@ -51,22 +58,21 @@ export default function Appointment(props) {
       interviewers={props.interviewers}
       interview={props.interview}
       onSave={save}
-      onCancel={()=> back()}
+      onCancel={() => back()}
     />
     )}
-    {mode === SAVING && 
-    <Saving 
-    message="Saving"/>}
-    {mode === CONFIRM && 
-    <Confirm 
-    message="Delete the Appointment?"
-    onCancel={()=> back()}
-    onConfirm={()=> transition(DELETING)}
-    />}
-    {mode === DELETING && 
-    <Empty onAdd={() => transition(CREATE)}
+    {mode === SAVING &&
+      <Saving
+        message="Saving" />}
+    {mode === CONFIRM &&
+      <Confirm
+        message="Delete the Appointment?"
+        onCancel={() => back()}
+        onConfirm={() => del()}
+      />}
+    {mode === DELETING &&
+      <Deleting
+        message="Deleting" />}
 
-    />}
-    
   </article>
 }

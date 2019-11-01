@@ -14,7 +14,7 @@ export default function Application(props) {
   });
   
   function bookInterview(id, interview) {
-    //console.log(id, interview);
+    //locally adds new appointment
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -23,12 +23,12 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-    setState({
-      ...state,
-      appointments
-    });
+    // setState({
+    //   ...state,
+    //   appointments
+    // });
+    //goes into api endpoint to permanently add appointment
     return axios.put(`/api/appointments/${id}`, {interview})
-    // const { student, interviewer } = request.body.interview;
     .then(()=> {
       setState({...state, appointments})
     }).catch((err)=> {
@@ -36,17 +36,24 @@ export default function Application(props) {
     })
   }
   
-  //creating delete interview request into endpoint
+  //deleting interview, first part deletes it on the client side
   function cancelInterview(id){
     const appointment = {
       ...state.appointments[id],
       interview: null
     };
-    setState({
-      ...state,
-      appointment
-    });
-    
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+   
+    //deletes the interview from database
+    return axios.delete(`/api/appointments/${id}`)
+    .then(()=> {
+      setState({...state, appointments})
+    }).catch((err)=> {
+      console.error(err)
+    })
   }
   const setDay = day => setState(prev => ({ ...prev, day }));
 
@@ -91,7 +98,6 @@ export default function Application(props) {
         interviewers={interviewers}
         bookInterview={bookInterview}
         cancelInterview={cancelInterview}
-        
       />
     );
   });
