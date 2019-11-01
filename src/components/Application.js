@@ -12,9 +12,23 @@ export default function Application(props) {
     days: [],
     appointments: {}
   });
+  //creating delete interview request into endpoint
+  // function cancelInterview(id, interview){
+  //   const appointment = {
+  //     ...state.appointments[id],
+  //     interview: { ...interview }
+  //   };
+  //   return axios.delete(`/api/appointments/${id}`, {interview})
+  //   // const { student, interviewer } = request.body.interview;
+  //   .then(()=> {
+  //     setState({...state, appointments})
+  //   }).catch((err)=> {
+  //     console.error(err)
+  //   })
+  // }
 
   function bookInterview(id, interview) {
-    console.log(id, interview);
+    //console.log(id, interview);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -66,6 +80,7 @@ export default function Application(props) {
 
       })
   }, []);
+
   const appointments = getAppointmentsForDay(state, state.day)
   const interviewers = getInterviewersForDay(state, state.day)
 
@@ -78,9 +93,8 @@ export default function Application(props) {
         key={appointment.id}
         interview={interview}
         interviewers={interviewers}
-        bookInterview={bookInterview }
-        // Within the save function in our Appointment component transition to the SHOW mode after calling props.bookInterview.
-
+        bookInterview={bookInterview}
+        
       />
     );
   });
