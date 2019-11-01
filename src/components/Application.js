@@ -12,21 +12,7 @@ export default function Application(props) {
     days: [],
     appointments: {}
   });
-  //creating delete interview request into endpoint
-  // function cancelInterview(id, interview){
-  //   const appointment = {
-  //     ...state.appointments[id],
-  //     interview: { ...interview }
-  //   };
-  //   return axios.delete(`/api/appointments/${id}`, {interview})
-  //   // const { student, interviewer } = request.body.interview;
-  //   .then(()=> {
-  //     setState({...state, appointments})
-  //   }).catch((err)=> {
-  //     console.error(err)
-  //   })
-  // }
-
+  
   function bookInterview(id, interview) {
     //console.log(id, interview);
     const appointment = {
@@ -41,7 +27,6 @@ export default function Application(props) {
       ...state,
       appointments
     });
-
     return axios.put(`/api/appointments/${id}`, {interview})
     // const { student, interviewer } = request.body.interview;
     .then(()=> {
@@ -49,9 +34,20 @@ export default function Application(props) {
     }).catch((err)=> {
       console.error(err)
     })
-  
   }
-
+  
+  //creating delete interview request into endpoint
+  function cancelInterview(id){
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    setState({
+      ...state,
+      appointment
+    });
+    
+  }
   const setDay = day => setState(prev => ({ ...prev, day }));
 
   useEffect(() => {
@@ -94,6 +90,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
         
       />
     );
