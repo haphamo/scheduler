@@ -1,15 +1,47 @@
-import { useState, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import axios from 'axios';
 
-//import "components/Application.scss";
-//import axios from "axios";
+/*
+dispatch({ type: SET_DAY, day });
+dispatch({ type: SET_APPLICATION_DATA, days, appointments, interviewers });
+dispatch({ type: SET_INTERVIEW, id, interview });
+dispatch({ type: SET_INTERVIEW, id, interview: null });
 
+There are a few places in our useApplicationData Hook that we will need to update to dispatch actions instead of calling setState
+
+In our setDay function
+When we bookInterview OR cancelInterview
+When our scheduler-api successfully returns our request with the application data
+ */
+
+const SET_DAY = "SET_DAY"
+const SET_APPLICATION_DATA = "SET_APPLICATION_DATA"
+const SET_INTERVIEW = "SET_INTERVIEW"
 export default function useApplicationData() {
-  const [state, setState] = useState({
+
+  const initial = {
     day: "Monday",
     days: [],
     appointments: {}
-  });
+  };
+
+  function reducer(state, action) {
+    if (action.type === SET_DAY) {
+      return { ...state, ...action.value }
+    }
+     else if (action.type === SET_APPLICATION_DATA) {
+      return { ...state, ...action.value }
+    }
+    else if (action.type === SET_INTERVIEW) {
+      return { ...state, ...action.value }
+    } else {
+      console.log(` This ${action.type} does not exist!`)
+    }
+
+  
+  }
+  //Replacing useState Hook with useReducer
+  const [state, dispatch] = useReducer(reducer, initial)
 
   function bookInterview(id, interview) {
     //locally adds new appointment
@@ -24,7 +56,8 @@ export default function useApplicationData() {
     //goes into api endpoint to permanently add appointment
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
-        setState({ ...state, appointments })
+        //setState({ ...state, appointments })
+        dispatch({ type: SET_INTERVIEW, value: { appointments } })
       })
   }
 
@@ -41,11 +74,13 @@ export default function useApplicationData() {
     //deletes the interview from database
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
-        setState({ ...state, appointments })
+        //setState({ ...state, appointments })
+        dispatch({ type: SET_INTERVIEW, value: {appointments} })
       })
   }
 
-  const setDay = day => setState(prev => ({ ...prev, day }));
+  //const setDay = day => setState(prev => ({ ...prev, day }));
+  const setDay = day => dispatch({ type: SET_DAY, value: {day} });
 
   useEffect(() => {
     axios.all([
@@ -54,12 +89,11 @@ export default function useApplicationData() {
       axios.get(`/api/interviewers`)
     ])
       .then((all) => {
-        console.log(all[2].data)
-        setState(prev => ({
-          ...prev, days: all[0].data,
-          appointments: all[1].data,
-          interviewers: all[2].data
-        }))
+        let days = all[0].data;
+        let appointments = all[1].data;
+        let interviewers = all[2].data
+
+        dispatch({ type: SET_APPLICATION_DATA, value: { days, appointments, interviewers } })
 
       })
   }, []);
