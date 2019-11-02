@@ -3,9 +3,8 @@ import axios from 'axios';
 
 const SET_DAY = "SET_DAY"
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA"
-const SET_INTERVIEW = "SET_INTERVIEW"
+//const SET_INTERVIEW = "SET_INTERVIEW"
 export default function useApplicationData() {
-
   const initial = {
     day: "Monday",
     days: [],
@@ -21,9 +20,10 @@ export default function useApplicationData() {
     else if (action.type === SET_APPLICATION_DATA) {
       return { ...state, ...action.value }
     }
-    else if (action.type === SET_INTERVIEW) {
-      return { ...state, ...action.value }
-    } else {
+    // else if (action.type === SET_INTERVIEW) {
+    //   return { ...state, ...action.value }
+    // } 
+    else {
       console.log(` This ${action.type} does not exist!`)
     }
   }
@@ -31,14 +31,14 @@ export default function useApplicationData() {
 
   function bookInterview(id, interview) {
     //locally adds new appointment
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
+    // const appointment = {
+    //   ...state.appointments[id],
+    //   interview: { ...interview }
+    // };
+    // const appointments = {
+    //   ...state.appointments,
+    //   [id]: appointment
+    // };
     //goes into api endpoint to permanently add appointment
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
@@ -60,10 +60,10 @@ export default function useApplicationData() {
 
   //deleting interview, first part deletes it on the client side
   function cancelInterview(id) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    };
+    // const appointment = {
+    //   ...state.appointments[id],
+    //   interview: null
+    // };
     // const appointments = {
     //   ...state.appointments,
     //   [id]: appointment
@@ -79,7 +79,6 @@ export default function useApplicationData() {
           axios.get(`/api/interviewers`)
         ])
           .then((all) => {
-            console.log("FSDFHSLHDFH")
             let days = all[0].data;
             let appointments = all[1].data;
             let interviewers = all[2].data
