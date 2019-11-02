@@ -1,19 +1,6 @@
 import { useReducer, useEffect } from "react";
 import axios from 'axios';
 
-/*
-dispatch({ type: SET_DAY, day });
-dispatch({ type: SET_APPLICATION_DATA, days, appointments, interviewers });
-dispatch({ type: SET_INTERVIEW, id, interview });
-dispatch({ type: SET_INTERVIEW, id, interview: null });
-
-There are a few places in our useApplicationData Hook that we will need to update to dispatch actions instead of calling setState
-
-In our setDay function
-When we bookInterview OR cancelInterview
-When our scheduler-api successfully returns our request with the application data
- */
-
 const SET_DAY = "SET_DAY"
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA"
 const SET_INTERVIEW = "SET_INTERVIEW"
@@ -37,10 +24,7 @@ export default function useApplicationData() {
     } else {
       console.log(` This ${action.type} does not exist!`)
     }
-
-  
   }
-  //Replacing useState Hook with useReducer
   const [state, dispatch] = useReducer(reducer, initial)
 
   function bookInterview(id, interview) {
@@ -56,7 +40,6 @@ export default function useApplicationData() {
     //goes into api endpoint to permanently add appointment
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
-        //setState({ ...state, appointments })
         dispatch({ type: SET_INTERVIEW, value: { appointments } })
       })
   }
@@ -79,7 +62,6 @@ export default function useApplicationData() {
       })
   }
 
-  //const setDay = day => setState(prev => ({ ...prev, day }));
   const setDay = day => dispatch({ type: SET_DAY, value: {day} });
 
   useEffect(() => {
