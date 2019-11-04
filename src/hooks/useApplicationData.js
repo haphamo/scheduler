@@ -47,7 +47,6 @@ export default function useApplicationData() {
           axios.get(`/api/interviewers`)
         ])
         .then(all => {
-          console.log("FSDFHSLHDFH");
           let days = all[0].data;
           let appointments = all[1].data;
           let interviewers = all[2].data;

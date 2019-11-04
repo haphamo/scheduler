@@ -28,7 +28,6 @@ export default function Form(props) {
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
         <form autoComplete="off" onSubmit={event => event.preventDefault()}>
-          {error && <h3> Can't be blank </h3>}
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
@@ -36,10 +35,12 @@ export default function Form(props) {
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="Enter Student Name"
+            data-testid="student-name-input"
             /*
             This must be a controlled component
           */
           />
+          {error && <h3> You must enter a name AND select an interviewer! </h3>}
         </form>
         <InterviewerList
           interviewers={props.interviewers}
