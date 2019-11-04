@@ -17,12 +17,24 @@ export default function Form(props) {
   };
 
   const onSave = () => {
-    if (name && interviewer) {
+    // TODO: add later `&& interviewer`
+    if (name) {
       props.onSave(name, interviewer);
+      toggleError(false);
+
     } else {
       toggleError(true);
     }
   };
+  
+  // function validate() {
+  //   if (name === "") {
+  //     setError("Student name cannot be blank");
+  //     return;
+  //   }
+  
+  //   props.onSave(name, interviewer);
+  // }
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -41,6 +53,7 @@ export default function Form(props) {
           */
           />
           {error && <h3> You must enter a name AND select an interviewer! </h3>}
+          <section className="appointment__validation">{error}</section>
         </form>
         <InterviewerList
           interviewers={props.interviewers}
