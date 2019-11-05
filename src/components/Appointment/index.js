@@ -44,7 +44,7 @@ export default function Appointment(props) {
       .catch(() => transition(ERROR, true))
   }
 
-  return <article className="appointment">
+  return <article className="appointment" data-testid="appointment">
     <Header time={props.time} />
     {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
     {mode === SHOW && (

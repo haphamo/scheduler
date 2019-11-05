@@ -1,8 +1,7 @@
 //The file will export an object with the three functions that we use in the useApplicationData Hook.
 //It is important that the name of the module matches the name of the library that we are mocking
-//Since we are mocking the get function, we need to use jest.fn() to create the mock. 
+//Since we are mocking the get function, we need to use jest.fn() to create the mock.
 //We want to control the data that is returned from the mock, so we need to provide an implementation.
-
 
 const fixtures = {
   days: [
@@ -85,5 +84,18 @@ export default {
         data: fixtures.interviewers
       });
     }
+  }),
+  put: jest.fn(url => {
+    return Promise.resolve({
+      status: 204,
+      statusText: "No content"
+    });
   })
-}
+  // delete: jest.fn(url => {
+  //   return Promise.resolve({
+  //     status: 204,
+  //     statusText: "No content"
+  //   });
+  // })
+  
+};
