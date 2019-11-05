@@ -89,7 +89,7 @@ describe("Form", () => {
     expect(queryByText(/You must enter a name AND select an interviewer!/i)).toBeNull();
   
     expect(onSave).toHaveBeenCalledTimes(1);
-    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
+    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null, undefined);
   });
 
   it("calls onCancel and resets the input field", () => {

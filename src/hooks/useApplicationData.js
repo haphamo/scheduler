@@ -82,12 +82,12 @@ export default function useApplicationData() {
       [id]: appointment
     };
     const days = state.days.map( day => {
-      return (day.id === checkDay(id) ? { ...day, spots: day.spots - 1 } : { ...day })
+      return (day.id === checkDay(id) ? { ...day, spots: day.spots + 1 } : { ...day })
     });
     //deletes the interview from database
     return axios.delete(`/api/appointments/${id}`).then(() => {
       //setState({ ...state, appointments })
-      dispatch({ type: SET_INTERVIEW, value: {appointments} })
+      dispatch({ type: SET_INTERVIEW, value: {appointments, days} })
       Promise
         .all([
           axios.get(`/api/days`),

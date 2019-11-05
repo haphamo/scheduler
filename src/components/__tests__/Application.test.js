@@ -34,7 +34,7 @@ describe("Application", () => {
   });
 
   it("loads data, books an interview and reduces the spots remaining for Monday by 1", async () => {
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
     await waitForElement(() => getByText(container, "Archie Cohen"));
     
 
@@ -52,7 +52,16 @@ describe("Application", () => {
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
     expect(getByText(appointment, "Lydia Miller-Jones")).toBeInTheDocument();
-    console.log(prettyDOM(container))
+    //console.log(prettyDOM(container))
     
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+    
+    console.log(prettyDOM(day));
   });
+
+  
 });
+
+//The last step for this test is to check that the DayListItem component that we are rendering with the text "Monday" also displays the text "no spots remaining".
