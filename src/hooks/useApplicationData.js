@@ -42,9 +42,9 @@ export default function useApplicationData() {
       // dispatch({ type: SET_INTERVIEW, value: { appointments } })
       axios
         .all([
-          axios.get(`/api/days`),
-          axios.get(`/api/appointments`),
-          axios.get(`/api/interviewers`)
+          axios.get(`http://localhost:8001/api/days`),
+          axios.get(`http://localhost:8001/api/appointments`),
+          axios.get(`http://localhost:8001/api/interviewers`)
         ])
         .then(all => {
           let days = all[0].data;
@@ -91,9 +91,10 @@ export default function useApplicationData() {
   }
 
   const setDay = day => dispatch({ type: SET_DAY, value: { day } });
-
+  /*The axios.get() method will return a promise.
+  The Promise.all() requires an array of promises. */
   useEffect(() => {
-    axios
+    Promise
       .all([
         axios.get(`/api/days`),
         axios.get(`/api/appointments`),
