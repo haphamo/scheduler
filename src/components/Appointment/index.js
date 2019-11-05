@@ -26,14 +26,14 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  function save(name, interviewer) {
+  function save(name, interviewer, createInterview) {
     const interview = {
       student: name,
       interviewer
     }
     //create promise to create delay
     transition(SAVING, true)
-    props.bookInterview(props.id, interview)
+    props.bookInterview(props.id, interview, createInterview)
       .then(() => transition(SHOW))
       .catch(() => transition(ERRORSAVE, true))
   }
@@ -43,7 +43,7 @@ export default function Appointment(props) {
       .then(() => transition(EMPTY))
       .catch(() => transition(ERROR, true))
   }
-
+  // console.log(mode, props)
   return <article className="appointment" data-testid="appointment">
     <Header time={props.time} />
     {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
@@ -61,6 +61,7 @@ export default function Appointment(props) {
       interview={props.interview}
       onSave={save}
       onCancel={() => back()}
+      isSave={true}
     />
     )}
     {mode === SAVING &&

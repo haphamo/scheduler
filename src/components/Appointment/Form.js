@@ -19,7 +19,7 @@ export default function Form(props) {
   const onSave = () => {
     // TODO: add later `&& interviewer`
     if (name) {
-      props.onSave(name, interviewer);
+      props.onSave(name, interviewer, props.isSave);
       toggleError(false);
 
     } else {
