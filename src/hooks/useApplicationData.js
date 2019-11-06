@@ -16,19 +16,6 @@ export default function useApplicationData() {
     interviewers: {}
   };
 
-  // function reducer(state, action) {
-  //   if (action.type === SET_DAY) {
-  //     return { ...state, ...action.value };
-  //   } else if (action.type === SET_APPLICATION_DATA) {
-  //     return { ...state, ...action.value };
-  //   }
-  //   else if (action.type === SET_INTERVIEW) {
-  //     return { ...state, ...action.value }
-  //   }
-  //   else {
-  //     console.log(` This ${action.type} does not exist!`);
-  //   }
-  // }
   const [state, dispatch] = useReducer(reducer, initial);
 
   const checkDay = (id) => {
@@ -57,21 +44,7 @@ export default function useApplicationData() {
     //goes into api endpoint to permanently add appointment
     return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
       dispatch({ type: SET_INTERVIEW, value: { appointments , days } })
-      Promise
-        .all([
-          axios.get(`/api/days`),
-          axios.get(`/api/appointments`),
-          axios.get(`/api/interviewers`)
-        ])
-        .then(all => {
-          let days = all[0].data;
-          let appointments = all[1].data;
-          let interviewers = all[2].data;
-          // dispatch({
-          //   type: SET_APPLICATION_DATA,
-          //   value: { days, appointments, interviewers }
-          // });
-        });
+
     });
   }
 
@@ -92,21 +65,7 @@ export default function useApplicationData() {
     return axios.delete(`/api/appointments/${id}`).then(() => {
       //setState({ ...state, appointments })
       dispatch({ type: SET_INTERVIEW, value: {appointments, days} })
-      Promise
-        .all([
-          axios.get(`/api/days`),
-          axios.get(`/api/appointments`),
-          axios.get(`/api/interviewers`)
-        ])
-        .then(all => {
-          let days = all[0].data;
-          let appointments = all[1].data;
-          let interviewers = all[2].data;
-          dispatch({
-            type: SET_APPLICATION_DATA,
-            value: { days, appointments, interviewers }
-          });
-        });
+
     });
   }
 

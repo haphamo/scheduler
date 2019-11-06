@@ -1,7 +1,7 @@
-let fixtures = {}
+//let fixtures = {}
 
-const init = function () {//
-  fixtures = 
+//const init = function () {//
+  let fixtures = 
     {
       days: [
         {
@@ -56,7 +56,7 @@ const init = function () {//
         }
       }
     };
-}
+//}
 
 export default {
   initFixtures() {//

@@ -24,10 +24,10 @@ afterEach(cleanup);
 //We can make our test asynchronous by returning a Promise.
 
 describe("Application", () => {
-  beforeEach(() => {//reset state before each it
-    cleanup();
-    axios.initFixtures()
-  });
+  // beforeEach(() => {//reset state before each it
+  //   cleanup();
+  //   axios.initFixtures()
+  // });
   
   it("defaults to Monday and changes the schedule when a new day is selected", async () => {
     const { getByText } = render(<Application />);
@@ -82,12 +82,12 @@ describe("Application", () => {
     fireEvent.click(queryByText(appointment, "Confirm"));
     expect(getByText(appointment, "Deleting")).toBeInTheDocument();
     await waitForElement(() => getByAltText(appointment, "Add"));
-    console.log(prettyDOM(appointment))
+    console.log(prettyDOM(container))
     // 8. Check that the DayListItem with the text "Monday" also has the text "2 spots remaining".
-    // const day = getAllByTestId(container, "day").find(day =>
-    //   queryByText(day, "Monday")
-    // );
-    // expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+    expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
   });
 
   it("shows the save error when failing to save an appointment", () => {
