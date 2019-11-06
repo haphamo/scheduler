@@ -17,24 +17,14 @@ export default function Form(props) {
   };
 
   const onSave = () => {
-    // TODO: add later `&& interviewer`
-    if (name) {
+    // The tests do not pass when interviewer is checked. If name is checked then tests will pass
+    if (name && interviewer) {
       props.onSave(name, interviewer, props.isSave);
       toggleError(false);
-
     } else {
       toggleError(true);
     }
   };
-  
-  // function validate() {
-  //   if (name === "") {
-  //     setError("Student name cannot be blank");
-  //     return;
-  //   }
-  
-  //   props.onSave(name, interviewer);
-  // }
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -48,9 +38,6 @@ export default function Form(props) {
             onChange={e => setName(e.target.value)}
             placeholder="Enter Student Name"
             data-testid="student-name-input"
-            /*
-            This must be a controlled component
-          */
           />
           {error && <h3> You must enter a name AND select an interviewer! </h3>}
           <section className="appointment__validation">{error}</section>
