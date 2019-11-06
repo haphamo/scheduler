@@ -12,7 +12,7 @@ function reducer(state, action) {
     return { ...state, ...action.value }
   }
   else {
-    throw "tried to reduce with unsupported action type"
+    throw new Error ("tried to reduce with unsupported action type");
   }
 }
 
