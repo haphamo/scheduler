@@ -1,9 +1,13 @@
 import { useReducer, useEffect } from "react";
 import axios from "axios";
+import {
+  reducer,
+  SET_DAY,
+  SET_APPLICATION_DATA,
+  SET_INTERVIEW
+} from "reducers/application";
 
-const SET_DAY = "SET_DAY";
-const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
-const SET_INTERVIEW = "SET_INTERVIEW"
+
 export default function useApplicationData() {
   const initial = {
     day: "Monday",
@@ -12,19 +16,19 @@ export default function useApplicationData() {
     interviewers: {}
   };
 
-  function reducer(state, action) {
-    if (action.type === SET_DAY) {
-      return { ...state, ...action.value };
-    } else if (action.type === SET_APPLICATION_DATA) {
-      return { ...state, ...action.value };
-    }
-    else if (action.type === SET_INTERVIEW) {
-      return { ...state, ...action.value }
-    }
-    else {
-      console.log(` This ${action.type} does not exist!`);
-    }
-  }
+  // function reducer(state, action) {
+  //   if (action.type === SET_DAY) {
+  //     return { ...state, ...action.value };
+  //   } else if (action.type === SET_APPLICATION_DATA) {
+  //     return { ...state, ...action.value };
+  //   }
+  //   else if (action.type === SET_INTERVIEW) {
+  //     return { ...state, ...action.value }
+  //   }
+  //   else {
+  //     console.log(` This ${action.type} does not exist!`);
+  //   }
+  // }
   const [state, dispatch] = useReducer(reducer, initial);
 
   const checkDay = (id) => {
