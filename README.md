@@ -6,6 +6,12 @@ Appointments can be changed, the student name or interviewer can be updated.
 There are only 5 interviewers to choose from api provided.
 
 
+Below are some screenshots.
+This is the homepage!
+!["Homepage"](https://raw.githubusercontent.com/haphamo/scheduler/master/docs/Homepage.png)
+Test Create
+!["Create Appointment"](https://github.com/haphamo/scheduler/blob/master/docs/create-appointment.png)
+
 
 ## Setup
 
