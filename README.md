@@ -17,10 +17,10 @@ It will prompt you to confirm if you want to delete before deleting
 !["confirmDelete](https://raw.githubusercontent.com/haphamo/scheduler/master/docs/confirm-delete.png)
 The spots will update as appointments are created or deleted.<br/>
 If the day is full, the view will change to display
-<p>!["spots](https://raw.githubusercontent.com/haphamo/scheduler/master/docs/spots-full.png)</p>
+!["spots](https://raw.githubusercontent.com/haphamo/scheduler/master/docs/spots-full.png)
 A name must be inputed and interviewer must be selected to book an appointment<br/>
 Otherwise an error will occur
-![errorNoName](https://raw.githubusercontent.com/haphamo/scheduler/master/docs/error-no-name.png)
+![errorNoName](https://raw.githubusercontent.com/haphamo/scheduler/master/docs/error-no-name.png)<br/>
 ![errorNoInterviewer](https://raw.githubusercontent.com/haphamo/scheduler/master/docs/error-no-interviewer.png)
 
 
